@@ -30,6 +30,14 @@
 </style>
 <script>
 
+    /**
+     * This function is called when the user clicks the "Clear" button.
+     */
+    function clearCanvas() {
+        graphics.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+
     "use strict";  // gives improved error-checking in scripts.
 
     var canvas;    // The canvas element on which we will draw.
@@ -61,7 +69,9 @@
         
         var colorChoice;  // Integer code for the selected color in the "colorChoide"
                           // popup menu.  The value is assigned in doMouseDown.
-        
+
+        var shapeChoice;
+
         function doMouseDown(evt) {
                 // This function is called when the user presses a button on the mouse.
                 // Only the main mouse button will start a drag.
@@ -84,10 +94,14 @@
             }
             colorChoice = Number(document.getElementById("colorChoice").value);
             // TODO: Anything else to do when mouse is first pressed?
+
+            shapeChoice = Number(document.getElementById("shapeChoice").value);
         }
         
         function doMouseMove(evt) {
                 // This function is called when the user moves the mouse during a drag.
+            shapeChoice = Number(document.getElementById("shapeChoice").value);
+
             if (!dragging) {
                 return;  // (shouldn't be possible)
             }
@@ -98,6 +112,8 @@
             
             /*------------------------------------------------------------*/
             /* TODO: Add support for more drawing tools. */
+
+
             
             if ( Math.abs(x-prevX) + Math.abs(y-prevY) < 3 ) {
                 return;  // don't draw squares too close together
@@ -115,9 +131,38 @@
             else if (colorChoice == 3) {
                 graphics.fillStyle = "blue";
             }
-            graphics.fillRect(x-20,y-20,40,40);
-            graphics.strokeRect(x-20,y-20,40,40);
-            
+            else if (colorChoice == 4) {
+                graphics.fillStyle = "magenta";
+            }
+
+            if (shapeChoice == 0) {
+                graphics.fillRect(x - 20, y - 20, 40, 40);
+                graphics.strokeRect(x - 20, y - 20, 40, 40);
+            }
+            else if (shapeChoice == 1) {
+                graphics.strokeStyle = 'black';
+                graphics.lineWidth = 3;
+
+                // Trapezoid
+                graphics.beginPath();
+                graphics.moveTo(x - 150, y - 100);
+                graphics.lineTo(x + 50, y - 100);
+                graphics.lineTo(x + 100, y);
+                graphics.lineTo(x - 200, y);
+                graphics.closePath();
+                graphics.fill();
+                graphics.stroke();
+
+                // Triangle
+                graphics.beginPath();
+                graphics.moveTo(x - 200, y);
+                graphics.lineTo(x - 50, y + 200);
+                graphics.lineTo(x + 100, y);
+                graphics.closePath();
+                graphics.fill();
+                graphics.stroke();
+
+            }
             /*------------------------------------------------------------*/
             
             prevX = x;  // update prevX,prevY to prepare for next call to doMouseMove
@@ -256,12 +301,22 @@
 <p>JavaScript is required to use this page.</p>
 </noscript>
 
-<p><b>Color:</b>
+<button onclick="clearCanvas()">Clear</button>
+<p>
+    <b>Color:</b>
     <select id="colorChoice">
         <option value="0" selected="selected">Random</option>
         <option value="1">Red</option>
         <option value="2">Green</option>
         <option value="3">Blue</option>
+        <option value="4">Magenta</option>
+    </select>
+</p>
+<p>
+    <b>Shape:</b>
+    <select id="shapeChoice">
+        <option value="0" selected="selected">Square</option>
+        <option value="1">Diamond</option>
     </select>
 </p>
 
