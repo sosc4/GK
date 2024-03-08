@@ -36,17 +36,64 @@
      *  only be called once.)
      */
     function draw() {
-    
-        graphics.clearRect(0,0,600,600);
-        
-        // TODO: insert code to draw the image for Exercise 1!
-        graphics.fillRect(100,100,200,100);
-        graphics.strokeRect(100,100,300,200);
-        graphics.fillText("hello",50,50);
-        graphics.fillOval()
-        
-    } // end of draw()
-    
+        graphics.clearRect(0, 0, 600, 600);
+
+        applyWindowToViewportTransformation(0, 600, 600, 0, false);
+
+        graphics.fillStyle = 'magenta';
+        graphics.strokeStyle = 'black';
+        graphics.lineWidth = 3;
+
+        // trapezoid
+        graphics.beginPath();
+        graphics.moveTo(200, 200);
+        graphics.lineTo(400, 200);
+        graphics.lineTo(500, 300);
+        graphics.lineTo(100, 300);
+        graphics.closePath();
+        graphics.fill();
+        graphics.stroke();
+
+        // triangle
+        graphics.beginPath();
+        graphics.moveTo(100, 300);
+        graphics.lineTo(300, 500);
+        graphics.lineTo(500, 300);
+        graphics.closePath();
+        graphics.fill();
+        graphics.stroke();
+
+        // eyes
+        graphics.fillStyle = 'white';
+        graphics.fillCircle(225, 250, 25);
+        graphics.fillStyle = 'black';
+        graphics.fillCircle(218, 245, 15);
+        graphics.fillStyle = 'white';
+        graphics.fillCircle(214, 240, 5);
+
+        graphics.fillStyle = 'white';
+        graphics.fillCircle(375, 250, 25);
+        graphics.fillStyle = 'black';
+        graphics.fillCircle(368, 245, 15);
+        graphics.fillStyle = 'white';
+        graphics.fillCircle(364, 240, 5);
+
+        // mouth
+        graphics.fillStyle = 'black';
+
+        graphics.beginPath();
+        graphics.moveTo(230, 330);
+        graphics.quadraticCurveTo(300, 410, 370, 330);
+        graphics.quadraticCurveTo(300, 350, 230, 330);
+        graphics.stroke();
+        graphics.fill();
+
+        // teeth
+        graphics.fillStyle = 'white';
+
+        graphics.fillRect(280, 338, 20, 25);
+        graphics.fillRect(301, 338, 20, 25);
+    }
     
     /**
      * Sets up a transformation in the graphics context so that the canvas will
