@@ -48,40 +48,40 @@ def main():
             septagon = utils.create_septagon(septagon_center, config.SEPTAGON_SIZE)
 
         if pressed[pygame.K_2]['pressed']:
-            septagon = utils.create_septagon(septagon_center, 1.75 * config.SEPTAGON_SIZE,
+            septagon = utils.create_septagon(septagon_center, config.BIG_SEPTAGON_SIZE,
                                              angle=-90)
 
         if pressed[pygame.K_3]['pressed']:
             septagon = utils.create_septagon(septagon_center, config.SEPTAGON_SIZE,
-                                             angle=180, vertical_stretch=2)
+                                             angle=180, vertical_stretch=1.3)
 
         if pressed[pygame.K_4]['pressed']:
-            septagon = utils.create_septagon(septagon_center, 1.75 * config.SEPTAGON_SIZE,
+            septagon = utils.create_septagon(septagon_center, config.BIG_SEPTAGON_SIZE,
                                              x_skew=0.5)
 
         if pressed[pygame.K_5]['pressed']:
             septagon = utils.create_septagon(septagon_center, config.SEPTAGON_SIZE,
-                                             horizontal_stretch=2.0)
+                                             horizontal_stretch=1.3)
             top_y = min(septagon, key=lambda point: point[1])[1]
             top_difference = - top_y + 45  # TODO: Calculate this properly
 
             septagon = [(x, y + top_difference) for x, y in septagon]
 
         if pressed[pygame.K_6]['pressed']:
-            septagon = utils.create_septagon(septagon_center, 1.75 * config.SEPTAGON_SIZE,
+            septagon = utils.create_septagon(septagon_center, config.BIG_SEPTAGON_SIZE,
                                              x_skew=0.5, angle=90)
 
         if pressed[pygame.K_7]['pressed']:
             septagon = utils.create_septagon(septagon_center, config.SEPTAGON_SIZE,
-                                             angle=180, vertical_stretch=2, horizontal_flip=True)
+                                             angle=180, vertical_stretch=1.3, horizontal_flip=True)
 
         if pressed[pygame.K_8]['pressed']:
             septagon_center = (config.WINDOW_WIDTH // 2, (config.WINDOW_HEIGHT // 2) + 100)
             septagon = utils.create_septagon(septagon_center, config.SEPTAGON_SIZE,
-                                             angle=45, horizontal_stretch=2.0)
+                                             angle=45, horizontal_stretch=1.3)
 
         if pressed[pygame.K_9]['pressed']:
-            septagon = utils.create_septagon(septagon_center, 1.75 * config.SEPTAGON_SIZE,
+            septagon = utils.create_septagon(septagon_center, config.BIG_SEPTAGON_SIZE,
                                              angle=180, x_skew=0.5)
 
             top_x = max(septagon, key=lambda point: point[0])[0]
