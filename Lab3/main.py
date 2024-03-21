@@ -70,6 +70,10 @@ def main():
             septagon = utils.create_septagon(septagon_center, 2 * config.SEPTAGON_SIZE,
                                              x_skew=0.5, angle=90)
 
+        if pressed[pygame.K_7]['pressed']:
+            septagon = utils.create_septagon(septagon_center, config.SEPTAGON_SIZE,
+                                             angle=180, vertical_stretch=2, horizontal_flip=True)
+
         if septagon:
             pygame.draw.polygon(win, config.COLOR_OF_USE, septagon, 2)
 
