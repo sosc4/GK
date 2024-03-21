@@ -11,6 +11,11 @@ def rotate_point(center: tuple[float | int, float | int],
     """
     Rotate a point counterclockwise by a given angle around a given origin.
     The angle should be given in radians.
+
+    :param center: The center of rotation.
+    :param point: The point to rotate.
+    :param angle: The angle of rotation in radians.
+    :return: The rotated point.
     """
     ox, oy = center
     px, py = point
@@ -21,6 +26,13 @@ def rotate_point(center: tuple[float | int, float | int],
 
 
 def skew_matrix(x_skew: float, y_skew: float) -> np.ndarray:
+    """
+    Create a skew matrix.
+
+    :param x_skew: The skew factor for the x-axis.
+    :param y_skew: The skew factor for the y-axis.
+    :return: The skew matrix.
+    """
     return np.array([
         [1, x_skew, 0],
         [y_skew, 1, 0],
@@ -29,13 +41,26 @@ def skew_matrix(x_skew: float, y_skew: float) -> np.ndarray:
 
 
 def affine_transform(point: tuple[float, float], matrix: np.ndarray) -> tuple[float, float]:
+    """
+    Apply an affine transformation to a point.
+
+    :param point: The point to transform.
+    :param matrix: The transformation matrix.
+    :return: The transformed point.
+    """
     point = np.array([*point, 1.0])
     transformed_point = matrix @ point
 
     return transformed_point[0], transformed_point[1]
 
 
-def find_centroid(coordinates):
+def find_centroid(coordinates: list[tuple[float | int, float | int]]) -> tuple[float | int, float | int]:
+    """
+    Find the centroid of a polygon.
+
+    :param coordinates: The coordinates of the polygon.
+    :return: The centroid of the polygon.
+    """
     x_list = [vertex[0] for vertex in coordinates]
     y_list = [vertex[1] for vertex in coordinates]
     len_coords = len(coordinates)
@@ -52,9 +77,21 @@ def draw_septagon(surface: pygame.Surface,
                   angle: Optional[int | float] = 0,
                   vertical_stretch: Optional[float] = 1.0,
                   x_skew: Optional[float] = 0.0,
-                  y_skew: Optional[float] = 0.0):
-    skew_mat = skew_matrix(x_skew, y_skew)  # Create skew matrix
+                  y_skew: Optional[float] = 0.0) -> None:
+    """
+    Draw a septagon on a surface.
 
+    :param surface: The surface to draw on.
+    :param color: The color of the septagon.
+    :param center: The center of the septagon.
+    :param size: The size of the septagon.
+    :param angle: The rotation of the septagon.
+    :param vertical_stretch: The vertical stretch of the septagon.
+    :param x_skew: The skew factor for the x-axis.
+    :param y_skew: The skew factor for the y-axis.
+    :return: None
+    """
+    skew_mat = skew_matrix(x_skew, y_skew)
     temp_coordinates = []
 
     for i in range(7):
@@ -75,4 +112,4 @@ def draw_septagon(surface: pygame.Surface,
 
     coordinates = [(x + translation_x, y + translation_y) for x, y in temp_coordinates]
 
-    pygame.draw.polygon(surface, color, coordinates, 2)  # Draw septagon with transformed and
+    pygame.draw.polygon(surface, color, coordinates, 2)
