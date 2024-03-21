@@ -71,6 +71,7 @@ def find_centroid(coordinates: list[tuple[float | int, float | int]]) -> tuple[f
 def create_septagon(center: tuple[float | int, float | int],
                     size: int | float,
                     *,
+                    horizontal_flip: Optional[bool] = False,
                     angle: Optional[int | float] = 0,
                     horizontal_stretch: Optional[float] = 1.0,
                     vertical_stretch: Optional[float] = 1.0,
@@ -81,6 +82,8 @@ def create_septagon(center: tuple[float | int, float | int],
 
     :param center: The center of the septagon.
     :param size: The size of the septagon.
+
+    :param horizontal_flip: Whether to flip the septagon horizontally.
     :param angle: The rotation of the septagon.
     :param horizontal_stretch: The horizontal stretch of the septagon.
     :param vertical_stretch: The vertical stretch of the septagon.
@@ -97,6 +100,9 @@ def create_septagon(center: tuple[float | int, float | int],
 
         original_x = center[0] + (original_x - center[0]) * horizontal_stretch
         original_y = center[1] + (original_y - center[1]) * vertical_stretch
+
+        if horizontal_flip:
+            original_x = center[0] - (original_x - center[0])
 
         skewed_x, skewed_y = affine_transform((original_x, original_y), skew_mat)
 
