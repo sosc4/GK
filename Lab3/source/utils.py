@@ -2,7 +2,6 @@ import math
 from typing import Optional
 
 import numpy as np
-import pygame
 
 
 def rotate_point(center: tuple[float | int, float | int],
@@ -110,32 +109,3 @@ def create_septagon(center: tuple[float | int, float | int],
     translation_y = center[1] - skewed_centroid[1]
 
     return [(x + translation_x, y + translation_y) for x, y in temp_coordinates]
-
-
-def draw_septagon(surface: pygame.Surface,
-                  color: tuple[int, int, int],
-                  center: tuple[float | int, float | int],
-                  size: int | float,
-                  *,
-                  angle: Optional[int | float] = 0,
-                  horizontal_stretch: Optional[float] = 1.0,
-                  vertical_stretch: Optional[float] = 1.0,
-                  x_skew: Optional[float] = 0.0,
-                  y_skew: Optional[float] = 0.0) -> None:
-    """
-    Draw a septagon on a surface.
-
-    :param surface: The surface to draw on.
-    :param color: The color of the septagon.
-    :param center: The center of the septagon.
-    :param size: The size of the septagon.
-    :param angle: The rotation of the septagon.
-    :param horizontal_stretch: The horizontal stretch of the septagon.
-    :param vertical_stretch: The vertical stretch of the septagon.
-    :param x_skew: The skew factor for the x-axis.
-    :param y_skew: The skew factor for the y-axis.
-    :return: None.
-    """
-    coordinates = create_septagon(center, size, angle=angle, horizontal_stretch=horizontal_stretch,
-                                  vertical_stretch=vertical_stretch, x_skew=x_skew, y_skew=y_skew)
-    pygame.draw.polygon(surface, color, coordinates, 2)
