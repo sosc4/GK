@@ -75,6 +75,7 @@ def draw_septagon(surface: pygame.Surface,
                   size: int | float,
                   *,
                   angle: Optional[int | float] = 0,
+                  horizontal_stretch: Optional[float] = 1.0,
                   vertical_stretch: Optional[float] = 1.0,
                   x_skew: Optional[float] = 0.0,
                   y_skew: Optional[float] = 0.0) -> None:
@@ -86,6 +87,7 @@ def draw_septagon(surface: pygame.Surface,
     :param center: The center of the septagon.
     :param size: The size of the septagon.
     :param angle: The rotation of the septagon.
+    :param horizontal_stretch: The horizontal stretch of the septagon.
     :param vertical_stretch: The vertical stretch of the septagon.
     :param x_skew: The skew factor for the x-axis.
     :param y_skew: The skew factor for the y-axis.
@@ -98,6 +100,7 @@ def draw_septagon(surface: pygame.Surface,
         original_x = center[0] + size * math.cos(math.radians(i * (360 / 7) - 90))
         original_y = center[1] + size * math.sin(math.radians(i * (360 / 7) - 90))
 
+        original_x = center[0] + (original_x - center[0]) * horizontal_stretch
         original_y = center[1] + (original_y - center[1]) * vertical_stretch
 
         skewed_x, skewed_y = affine_transform((original_x, original_y), skew_mat)
