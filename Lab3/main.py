@@ -5,7 +5,7 @@ import pygame
 from source import config, utils
 
 pygame.init()
-win = pygame.display.set_mode((600, 600))
+win = pygame.display.set_mode((config.WINDOW_WIDTH, config.WINDOW_HEIGHT))
 pygame.display.set_caption("Lab3 - Oskar Stasiak")
 
 buttons = [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9]
@@ -36,20 +36,27 @@ while run:
                 if other_button != button:
                     pressed[other_button]['pressed'] = False
 
-    septagon_center = (300, 300)
+    septagon_center = (
+        config.WINDOW_WIDTH // 2,
+        config.WINDOW_HEIGHT // 2
+    )
     if pressed[pygame.K_1]['pressed']:
-        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, config.SIZE)
+        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, config.SEPTAGON_SIZE)
 
     if pressed[pygame.K_2]['pressed']:
-        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, 2 * config.SIZE,
+        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, 2 * config.SEPTAGON_SIZE,
                             angle=-90)
 
     if pressed[pygame.K_3]['pressed']:
-        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, config.SIZE,
-                            angle=180, vertical_stretch=1.5)
+        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, config.SEPTAGON_SIZE,
+                            angle=180, vertical_stretch=2)
 
     if pressed[pygame.K_4]['pressed']:
-        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, 2 * config.SIZE,
+        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, 2 * config.SEPTAGON_SIZE,
                             x_skew=0.5)
+
+    if pressed[pygame.K_5]['pressed']:
+        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, config.SEPTAGON_SIZE,
+                            horizontal_stretch=2)
 
     pygame.display.update()
