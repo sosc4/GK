@@ -130,7 +130,7 @@ while run:
         draw_septagon(win, COLOR_OF_USE, septagon_center, septagon_size)
 
     if pressed[pygame.K_2]['pressed']:
-        draw_septagon(win, COLOR_OF_USE, septagon_center, septagon_size,
+        draw_septagon(win, COLOR_OF_USE, septagon_center, 2 * septagon_size,
                       angle=-90)
 
     if pressed[pygame.K_3]['pressed']:
