@@ -16,8 +16,6 @@ def main():
 
     septagon_surface = pygame.Surface((config.SURFACE_WIDTH, config.SURFACE_HEIGHT),
                                       pygame.SRCALPHA)
-    septagon_center = (config.WINDOW_WIDTH // 2,
-                       config.WINDOW_HEIGHT // 2)
 
     run = True
     while run:
@@ -41,6 +39,9 @@ def main():
                 for other_button in buttons:
                     if other_button != button:
                         pressed[other_button]['pressed'] = False
+
+        septagon_center = (config.WINDOW_WIDTH // 2,
+                           config.WINDOW_HEIGHT // 2)
 
         septagon = None
         if pressed[pygame.K_1]['pressed']:
