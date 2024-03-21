@@ -66,6 +66,10 @@ def main():
 
             septagon = [(x, y + top_difference) for x, y in septagon]
 
+        if pressed[pygame.K_6]['pressed']:
+            septagon = utils.create_septagon(septagon_center, 2 * config.SEPTAGON_SIZE,
+                                             x_skew=0.5, angle=90)
+
         if septagon:
             pygame.draw.polygon(win, config.COLOR_OF_USE, septagon, 2)
 
