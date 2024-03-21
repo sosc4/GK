@@ -78,7 +78,7 @@ def draw_septagon(surface: pygame.Surface,
                   horizontal_stretch: Optional[float] = 1.0,
                   vertical_stretch: Optional[float] = 1.0,
                   x_skew: Optional[float] = 0.0,
-                  y_skew: Optional[float] = 0.0) -> None:
+                  y_skew: Optional[float] = 0.0) -> list[tuple[float, float]]:
     """
     Draw a septagon on a surface.
 
@@ -91,7 +91,7 @@ def draw_septagon(surface: pygame.Surface,
     :param vertical_stretch: The vertical stretch of the septagon.
     :param x_skew: The skew factor for the x-axis.
     :param y_skew: The skew factor for the y-axis.
-    :return: None
+    :return: The coordinates of the septagon.
     """
     skew_mat = skew_matrix(x_skew, y_skew)
     temp_coordinates = []
@@ -114,5 +114,6 @@ def draw_septagon(surface: pygame.Surface,
     translation_y = center[1] - skewed_centroid[1]
 
     coordinates = [(x + translation_x, y + translation_y) for x, y in temp_coordinates]
-
     pygame.draw.polygon(surface, color, coordinates, 2)
+
+    return coordinates
