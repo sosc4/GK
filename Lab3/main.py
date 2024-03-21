@@ -37,20 +37,19 @@ while run:
                     pressed[other_button]['pressed'] = False
 
     septagon_center = (300, 300)
-    septagon_size = 100
     if pressed[pygame.K_1]['pressed']:
-        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, septagon_size)
+        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, config.SIZE)
 
     if pressed[pygame.K_2]['pressed']:
-        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, 2 * septagon_size,
+        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, 2 * config.SIZE,
                             angle=-90)
 
     if pressed[pygame.K_3]['pressed']:
-        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, septagon_size,
+        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, config.SIZE,
                             angle=180, vertical_stretch=1.5)
 
     if pressed[pygame.K_4]['pressed']:
-        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, 2 * septagon_size,
+        utils.draw_septagon(win, config.COLOR_OF_USE, septagon_center, 2 * config.SIZE,
                             x_skew=0.5)
 
     pygame.display.update()

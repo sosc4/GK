@@ -9,3 +9,6 @@ BLUE = (0, 0, 255)
 GRAY = (128, 128, 128)
 
 COLOR_OF_USE = RED
+
+# Size
+SIZE = 100
