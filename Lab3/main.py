@@ -52,6 +52,15 @@ def affine_transform(point: tuple[float, float], matrix: np.ndarray) -> tuple[fl
     return transformed_point[0], transformed_point[1]
 
 
+def find_centroid(coordinates):
+    x_list = [vertex[0] for vertex in coordinates]
+    y_list = [vertex[1] for vertex in coordinates]
+    len_coords = len(coordinates)
+    x = sum(x_list) / len_coords
+    y = sum(y_list) / len_coords
+    return x, y
+
+
 def draw_septagon(surface: pygame.Surface,
                   color: tuple[int, int, int],
                   center: tuple[float | int, float | int],
@@ -63,7 +72,8 @@ def draw_septagon(surface: pygame.Surface,
                   y_skew: Optional[float] = 0.0):
     skew_mat = skew_matrix(x_skew, y_skew)  # Create skew matrix
 
-    coordinates = []
+    temp_coordinates = []
+
     for i in range(7):
         original_x = center[0] + size * math.cos(math.radians(i * (360 / 7) - 90))
         original_y = center[1] + size * math.sin(math.radians(i * (360 / 7) - 90))
@@ -73,9 +83,16 @@ def draw_septagon(surface: pygame.Surface,
         skewed_x, skewed_y = affine_transform((original_x, original_y), skew_mat)
 
         rotated_point = rotate_point(center, (skewed_x, skewed_y), math.radians(angle))
-        coordinates.append(rotated_point)
+        temp_coordinates.append(rotated_point)
 
-    pygame.draw.polygon(surface, color, coordinates, 2)
+    skewed_centroid = find_centroid(temp_coordinates)
+
+    translation_x = center[0] - skewed_centroid[0]
+    translation_y = center[1] - skewed_centroid[1]
+
+    coordinates = [(x + translation_x, y + translation_y) for x, y in temp_coordinates]
+
+    pygame.draw.polygon(surface, color, coordinates, 2)  # Draw septagon with transformed and
 
 
 buttons = [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9]
