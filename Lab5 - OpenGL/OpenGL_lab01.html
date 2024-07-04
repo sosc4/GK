@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="glsim.js"></script>
+<script>
+
+    let rotateX = 15;   // rotations of cube about the axes
+    let rotateY = -15;
+    let rotateZ = 0;
+    let object = 1;
+        
+    function getColor() {
+        return Math.random();
+    }
+
+    function spirale(n){
+        glColor3f(0, 0, 1);
+        glBegin(GL_LINE_STRIP);
+        const angle = Math.PI / (n * 0.5);
+        for (let i = 0; i < n * n; i++) {
+            const x = Math.cos(angle * i) * (0.03 * i);
+            const y = i / (2 * n);
+            const z = Math.sin(angle * i) * (0.03 * i);
+
+            glVertex3d(x, y, z);
+        }
+        glEnd();
+    }
+    
+    function pyramid(N){
+        glBegin(GL_TRIANGLES);
+    
+        for (let i = 0; i < N; ++i) {
+            const angle1 = (i * 2 * Math.PI) / N;
+            const angle2 = ((i + 1) * 2 * Math.PI) / N;
+
+            glColor3f(getColor(),getColor(),getColor());
+            
+            glVertex3f(0, 0, 1);
+
+            glVertex3f(Math.cos(angle1), Math.sin(angle1), 0);
+            glVertex3f(Math.cos(angle2), Math.sin(angle2), 0);
+        }
+
+        glColor3f(1,0,0);
+        for (let i = 0; i <= N - 1; ++i) {
+            glVertex3f(0, 0, 0);
+            glVertex3f(Math.cos(i * 2 * Math.PI / N), Math.sin(i * 2 * Math.PI / N), 0);
+            glVertex3f(Math.cos((i + 1) * 2 * Math.PI / N), Math.sin((i + 1) * 2 * Math.PI / N), 0);
+        }
+        glEnd();
+    }
+
+    function display() {
+
+        glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+                
+        glLoadIdentity(); 
+        glRotatef(rotateZ,0,0,1);
+        glRotatef(rotateY,0,1,0);
+        glRotatef(rotateX,1,0,0);
+        
+        if (object === 1) {
+            spirale(20);
+        }else{
+            pyramid(7);
+        }
+        
+    }
+    
+    function initGL() {
+        glMatrixMode(GL_PROJECTION);
+        glOrtho(-1, 1, -1, 1, -1, 1);
+        glMatrixMode(GL_MODELVIEW);
+        glEnable(GL_DEPTH_TEST);
+        glClearColor(0, 0, 0, 1);
+    }
+    
+    function doKeyDown(evt) {
+        let key = evt.keyCode;
+        if ( key == 37 ) //left
+           rotateY -= 15;
+        else if ( key == 39 )//right
+           rotateY += 15;
+        else if ( key == 40)//down
+           rotateX += 15;
+        else if ( key == 38 )//up
+           rotateX -= 15;
+        else if ( key == 33 )//page up
+           rotateZ += 15;
+        else if ( key == 34 )//page down
+           rotateZ -= 15;
+        else if ( key == 36 )//home
+           rotateX = rotateY = rotateZ = 0;
+        else if ( key == 49 )//Object 1
+           object = 1;
+        else if ( key == 50 )//Object 2
+           object = 2;
+        if (key >=34 && key <= 40) {
+            evt.preventDefault();
+        }
+        display();
+    }
+    
+    function init() {  
+        try {
+            glsimUse("glcanvas"); 
+        }
+        catch (e) {
+            document.getElementById("canvas-holder").innerHTML =
+                "Sorry, an error occured:<br>" + e;
+            return;
+        }
+        document.onkeydown = doKeyDown;
+        initGL();
+        display();
+    }
+
+</script>
+
+</head>
+
+<body onload="init()">
+
+<h3>OpenGL 1.1</h3>
+
+<p>(Rotate using arrow keys, page up, page down, and home keys.)</p>
+
+<noscript>
+<p><b>Sorry, this page requires JavaScript!</b></p>
+</noscript>
+
+<div id="canvas-holder">
+<canvas id="glcanvas" width="500" height="500"></canvas>
+</div>
+
+</body>
+</html>
